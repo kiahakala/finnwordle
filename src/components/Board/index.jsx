@@ -17,7 +17,7 @@ for (let i = 0; i < 6; i++) {
   }
 }
 
-function Board(props) {
+const Board = (props) => {
   const [letters, setLetters] = useState(defaultLetters);
   const [board, setBoard] = useState(defaulBoard);
   const [changed, setChanged] = useState(false);
