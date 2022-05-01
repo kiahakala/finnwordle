@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import Board from "../Board";
-import Error from "../Error";
-import Help from "../Help";
-import KeyBoard from "../KeyBoard";
-import Modal from "../Modal";
-import NavBar from "../NavBar";
+import Board from "../Board/Board";
+import Error from "../Error/Error";
+import Help from "../Help/Help";
+import KeyBoard from "../KeyBoard/Keyboard";
+import Modal from "../Modal/Modal";
+import NavBar from "../NavBar/Navbar";
 import styles from "./style.module.css";
 
 function Game(props) {

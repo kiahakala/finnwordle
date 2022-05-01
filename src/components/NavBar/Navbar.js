@@ -1,6 +1,6 @@
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import BarChartIcon from "@mui/icons-material/BarChart";
-import Settings from "../Settings";
+import Settings from "../Settings/Settings";
 
 function NavBar(props) {
   return (

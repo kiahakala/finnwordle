@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Box from "../Box";
+import Box from "../Box/Box";
 import words from "../../words";
 
 const correct = "CHANT";
