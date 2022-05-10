@@ -1,5 +1,5 @@
-import CloseIcon from "@mui/icons-material/Close";
-import "../../App.css";
+import CloseIcon from "@mui/icons-material/Close"
+import "../../App.css"
 
 function Modal(props) {
   return (
@@ -13,7 +13,7 @@ function Modal(props) {
           <h2 className="font-black text-2xl">{props.title}</h2>
           <CloseIcon
             onClick={() => {
-              props.help(false);
+              props.help(false)
             }}
           />
         </div>
@@ -24,11 +24,11 @@ function Modal(props) {
       <div
         className="z-0 absolute w-full h-full grid place-cente"
         onClick={() => {
-          props.help(false);
+          props.help(false)
         }}
       />
     </div>
-  );
+  )
 }
 
-export default Modal;
+export default Modal

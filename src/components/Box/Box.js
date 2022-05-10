@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
-import BackspaceIcon from "@mui/icons-material/Backspace";
+import { useEffect, useState } from "react"
+import BackspaceIcon from "@mui/icons-material/Backspace"
 
 const Box = (props) => {
-  const [state, setState] = useState("text-black border-2 border-gray-300 dark:bg-zinc-800 dark:text-white rounded");
+  const [state, setState] = useState("text-black border-2 border-gray-300 dark:bg-zinc-800 dark:text-white rounded")
 
   useEffect(() => {
     setTimeout(() => {
       if (props.state === "C")
-        setState("bg-correct text-white");
+        setState("bg-correct text-white")
       if (props.state === "E")
-        setState("bg-exist text-white");
+        setState("bg-exist text-white")
       if (props.state === "N")
-        setState("bg-wrong text-white dark:bg-gray-600");
-    }, 125 * props.pos);
-  }, [props.state]);
+        setState("bg-wrong text-white dark:bg-gray-600")
+    }, 125 * props.pos)
+  }, [props.state])
 
   return (
     <div
@@ -23,7 +23,7 @@ const Box = (props) => {
     >
       {props.value === "DEL" ? <BackspaceIcon /> : props.value}
     </div>
-  );
+  )
 }
 
-export default Box;
+export default Box

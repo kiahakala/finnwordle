@@ -1,26 +1,26 @@
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import SettingsIcon from "@mui/icons-material/Settings";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import { useState } from "react";
-import { Switch } from "@mui/material";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import Button from "@mui/material/Button"
+import Menu from "@mui/material/Menu"
+import SettingsIcon from "@mui/icons-material/Settings"
+import FormControlLabel from "@mui/material/FormControlLabel"
+import { useState } from "react"
+import { Switch } from "@mui/material"
+import GitHubIcon from "@mui/icons-material/GitHub"
+import TwitterIcon from "@mui/icons-material/Twitter"
 
 function Settings(props) {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null)
 
   const handleChange = () => {
-    props.darkness(!props.dark);
-  };
+    props.darkness(!props.dark)
+  }
 
-  const open = Boolean(anchorEl);
+  const open = Boolean(anchorEl)
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   return (
     <div>
@@ -45,7 +45,7 @@ function Settings(props) {
         </div>
       </Menu>
     </div>
-  );
+  )
 }
 
-export default Settings;
+export default Settings
