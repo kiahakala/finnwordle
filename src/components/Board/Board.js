@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Box from "../Box/Box"
 import words from "../../words"
 
-const correct = "MYYRÄ"
+let correct = words[Math.floor(Math.random() * words.length)].toUpperCase()
 let defaulBoard = []
 let defaultLetters = []
 
@@ -29,7 +29,7 @@ const Board = (props) => {
 
   useEffect(() => {
     if (win || lost) {
-      console.log("Game ended!")
+      console.log("Peli päättyi!")
     } else {
       if (props.clicks !== 0) {
         if (props.letter === "DEL") {
@@ -45,7 +45,7 @@ const Board = (props) => {
                 prevBoard[row][col][0] = props.letter
                 setCol(col + 1)
               } else {
-                props.error("Words are 5 letters long!")
+                props.error("Sanassa täytyy olla 5 kirjainta!")
                 setTimeout(() => {
                   props.error("")
                 }, 1000)
@@ -57,19 +57,23 @@ const Board = (props) => {
                 for (let i = 0; i < 5; i++) {
                   word += prevBoard[row][i][0]
                 }
+                //Jos words sisältää syötetyn sanan, lisätään correctLettersiin + 1
                 if (words.includes(word.toLowerCase())) {
                   for (let i = 0; i < 5; i++) {
                     if (correct[i] === prevBoard[row][i][0]) {
                       prevBoard[row][i][1] = "C"
                       correctLetters++
-                    } else if (correct.includes(prevBoard[row][i][0]))
+                      //Jos syötetty sana sisältää oikean kirjaimen, se näkyy oranssina
+                    } else if (word.includes(prevBoard[row][i][0])) 
                       prevBoard[row][i][1] = "E"
+                    //Muuten rivi on harmaa
                     else prevBoard[row][i][1] = "N"
                     setRow(row + 1)
+                    //Jos row on 5 eli ruudukko täynnä ilman oikeaa sanaa, peli loppuu häviöön
                     if (row === 5) {
                       setLost(true)
                       setTimeout(() => {
-                        setMessage(`It was ${correct}`)
+                        setMessage(`Sana oli ${correct}`)
                       }, 750)
                     }
 
@@ -80,16 +84,17 @@ const Board = (props) => {
                     })
                   }
                   setChanged(!changed)
+                  console.log(correct)
 
                   if (correctLetters === 5) {
                     setWin(true)
                     setTimeout(() => {
-                      setMessage("You WIN")
+                      setMessage("VOITIT!")
                     }, 750)
                   }
                   return prevBoard
                 } else {
-                  props.error("Word not in dictionary")
+                  props.error("Sana ei ole sanakirjassa")
                   setTimeout(() => {
                     props.error("")
                   }, 1000)
