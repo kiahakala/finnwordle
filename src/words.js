@@ -572,7 +572,6 @@ const words = [
 "jamit",
 "jannu",
 "jaoke",
-"japsi",
 "jarru",
 "jatke",
 "jatko",

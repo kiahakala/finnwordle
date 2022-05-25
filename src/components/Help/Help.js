@@ -19,44 +19,50 @@ function Help() {
   return (
     <>
       <p className="text-left text-sm sm:text-base py-5 font-regular opacity-75 mr-1">
-        Guess the WORDLE in six tries.
+        Arvaa FINNWORDLE kuudella yrityksellä.
         <br />
-        Each guess must be a valid five-letter word. Hit the enter button to
-        submit.
-        <br /> After each guess, the color of the tiles will change to show how
-        close your guess was to the word.
+        Jokaisen arvauksen on oltava sanakirjasta* löytyvä viisikirjaiminen sana. Paina "enter" lähettääksesi arvaus.
+        <br /> Arvauksen jälkeen arvatun sanan kirjainruutujen väri muuttuu sen perusteella, 
+        kuinka lähelle oikeaa sanaa arvauksesi osui.
       </p>
       <hr />
-      <h3 className="text-left font-bold py-5">Examples</h3>
+      <h3 className="text-left font-bold py-5">Esimerkit</h3>
       <div className="flex gap-1">
-        <Box value="S" state="C" />
-        <Box value="W" />
-        <Box value="E" />
+        <Box value="K" state="C" />
+        <Box value="I" />
+        <Box value="S" />
+        <Box value="S" />
         <Box value="A" />
-        <Box value="T" />
       </div>
       <p className="text-left text-sm sm:text-base py-2 opacity-75">
-        The letter <b>S</b> is in the word and in the correct spot.
+        Kirjain <b>K</b> on sanassa ja oikealla paikalla.
       </p>
+      <br></br>
       <div className="flex gap-1">
-        <Box value="N" />
+        <Box value="R" />
+        <Box value="A" state="E" />
+        <Box value="T" />
+        <Box value="T" />
+        <Box value="I" />
+      </div>
+      <p className="text-left text-sm sm:text-base py-2 opacity-75">
+        Kirjain <b>A</b> on sanassa, mutta eri kohdassa.
+      </p>
+      <br></br>
+      <div className="flex gap-1">
+        <Box value="H" />
         <Box value="U" />
-        <Box value="M" state="E" />
-        <Box value="B" />
-        <Box value="S" />
-      </div>
-      <p className="text-left text-sm sm:text-base py-2 opacity-75">
-        The letter <b>M</b> is in the word and in the correct spot.
-      </p>
-      <div className="flex gap-1">
-        <Box value="F" />
-        <Box value="L" state="N" />
-        <Box value="A" />
+        <Box value="U" />
         <Box value="T" />
-        <Box value="S" />
+        <Box value="O" state="N" />
       </div>
       <p className="text-left text-sm sm:text-base py-2 opacity-75">
-        The letter <b>N</b> is in the word and in the correct spot.
+        Kirjain <b>O</b> ei ole sanassa.
+      </p>
+      <br></br>
+      <hr />
+      <p className="text-left text-sm sm:text-base py-2 opacity-75">
+        *Sanat on poimittu Kotimaisten kielten keskuksen nykysuomen sanalistasta.
       </p>
     </>
   );

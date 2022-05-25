@@ -5,7 +5,7 @@ function Modal(props) {
   return (
     <div className="absolute w-full h-full grid place-cente">
       <div
-        className="z-10 flex place-self-center flex-col rounded-xl bg-white p-5 pb-10 drop-shadow-3xl dark:bg-zinc-800 dark:text-white"
+        className="z-10 flex place-self-center flex-col rounded-xl bg-white p-5 pb-10 drop-shadow-md dark:bg-zinc-800 dark:text-white"
         style={{ width: "min(600px, 90vw)", height: "min(580px, 80vh)" }}
       >
         <div className="flex justify-between items-center pb-5">

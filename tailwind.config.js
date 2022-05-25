@@ -7,7 +7,7 @@ module.exports = {
     },
     extend: {
       dropShadow: {
-        "3xl": "0px 35px 35px rgba(0, 0, 0, 0.45)",
+        "md": "0px 10px 10px rgba(0, 0, 0, 0.45)",
       },
       colors: {
         "correct": "#20AA57",

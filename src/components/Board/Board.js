@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react"
-import Box from "../Box/Box"
-import words from "../../words"
+import { useEffect, useState } from 'react'
+import Box from '../Box/Box'
+import words from '../../words'
 
-let correct = words[Math.floor(Math.random() * words.length)].toUpperCase()
+let correct = ''
 let defaulBoard = []
 let defaultLetters = []
 
-"abcdefghijklmnopqrstuvwxyzäö".split("").forEach((i) => {
-  defaultLetters[i] = ""
+'abcdefghijklmnopqrstuvwxyzäö'.split('').forEach((i) => {
+  defaultLetters[i] = ''
 })
 
 for (let i = 0; i < 6; i++) {
   defaulBoard.push([])
   for (let j = 0; j < 5; j++) {
-    defaulBoard[i].push(["", ""])
+    defaulBoard[i].push(['', ''])
   }
 }
 
@@ -25,55 +25,70 @@ const Board = (props) => {
   const [col, setCol] = useState(0)
   const [win, setWin] = useState(false)
   const [lost, setLost] = useState(false)
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState('')
+  const [correctW, setCorrectW] = useState('')
+  const [time, setTime] = useState(Date.now());
+
+  useEffect(() => {
+    let correct = words[Math.floor(Math.random() * words.length)].toUpperCase() 
+    setCorrectW(correct)
+    
+    let interval
+      interval = setInterval(() => {
+      setTime(Date.now())
+      console.log('In setInterval', correctW)
+      }, 86400000)
+    
+     return () => clearInterval(interval)
+  }, [time])
 
   useEffect(() => {
     if (win || lost) {
-      console.log("Peli päättyi!")
+      console.log('Peli päättyi!')
     } else {
       if (props.clicks !== 0) {
-        if (props.letter === "DEL") {
+        if (props.letter === 'DEL') {
           setCol(col === 0 ? 0 : col - 1)
           setBoard((prevBoard) => {
-            prevBoard[row][col === 0 ? 0 : col - 1][0] = ""
+            prevBoard[row][col === 0 ? 0 : col - 1][0] = ''
             return prevBoard
           })
         } else {
           setBoard((prevBoard) => {
             if (col < 5) {
-              if (props.letter !== "ENTER") {
+              if (props.letter !== 'ENTER') {
                 prevBoard[row][col][0] = props.letter
                 setCol(col + 1)
               } else {
-                props.error("Sanassa täytyy olla 5 kirjainta!")
+                props.error('Sanassa täytyy olla 5 kirjainta!')
                 setTimeout(() => {
-                  props.error("")
-                }, 1000)
+                  props.error('')
+                }, 10000)
               }
             } else {
-              if (props.letter === "ENTER") {
+              if (props.letter === 'ENTER') {
                 let correctLetters = 0
-                let word = ""
+                let word = ''
                 for (let i = 0; i < 5; i++) {
                   word += prevBoard[row][i][0]
                 }
                 //Jos words sisältää syötetyn sanan, lisätään correctLettersiin + 1
                 if (words.includes(word.toLowerCase())) {
                   for (let i = 0; i < 5; i++) {
-                    if (correct[i] === prevBoard[row][i][0]) {
-                      prevBoard[row][i][1] = "C"
+                    if (correctW[i] === prevBoard[row][i][0]) {
+                      prevBoard[row][i][1] = 'C'
                       correctLetters++
                       //Jos syötetty sana sisältää oikean kirjaimen, se näkyy oranssina
-                    } else if (word.includes(prevBoard[row][i][0])) 
-                      prevBoard[row][i][1] = "E"
+                    } else if (correctW.includes(prevBoard[row][i][0])) 
+                      prevBoard[row][i][1] = 'E'
                     //Muuten rivi on harmaa
-                    else prevBoard[row][i][1] = "N"
+                    else prevBoard[row][i][1] = 'N'
                     setRow(row + 1)
                     //Jos row on 5 eli ruudukko täynnä ilman oikeaa sanaa, peli loppuu häviöön
                     if (row === 5) {
                       setLost(true)
                       setTimeout(() => {
-                        setMessage(`Sana oli ${correct}`)
+                        setMessage(`Sana oli ${correctW}`)
                       }, 750)
                     }
 
@@ -84,19 +99,19 @@ const Board = (props) => {
                     })
                   }
                   setChanged(!changed)
-                  console.log(correct)
+                  console.log(correctW, time)
 
                   if (correctLetters === 5) {
                     setWin(true)
                     setTimeout(() => {
-                      setMessage("VOITIT!")
+                      setMessage('VOITIT!')
                     }, 750)
                   }
                   return prevBoard
                 } else {
-                  props.error("Sana ei ole sanakirjassa")
+                  props.error('Sana ei ole sanakirjassa')
                   setTimeout(() => {
-                    props.error("")
+                    props.error('')
                   }, 1000)
                 }
               }
@@ -113,18 +128,18 @@ const Board = (props) => {
   }, [changed])
 
   return (
-    <div className="px-10 py-5 grid gap-y-1 items-center w-100 justify-center">
+    <div className='px-10 py-5 grid gap-y-1 items-center w-100 justify-center'>
       {board.map((row, key) => {
         return (
-          <div key={key} className="flex gap-1 w-fit">
+          <div key={key} className='flex gap-1 w-fit'>
             {row.map((value, key) => (
               <Box key={key} value={value[0]} state={value[1]} pos={key} />
             ))}
           </div>
         )
       })}
-      <div className=" grid place-items-center h-8 font-bold dark:text-white">
-        {lost||win ? message : ""}
+      <div className=' grid place-items-center h-8 font-bold dark:text-white'>
+        {lost||win ? message : ''}
       </div>
     </div>
   )
