@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import Box from '../Box/Box'
 import words from '../../words'
 
-let correct = ''
 let defaulBoard = []
 let defaultLetters = []
 
@@ -18,6 +17,10 @@ for (let i = 0; i < 6; i++) {
 }
 
 const Board = (props) => {
+
+  const storedValueAsString = String(localStorage.getItem('word'))
+
+  const [correctW, setCorrectW] = useState(storedValueAsString ? storedValueAsString : '')
   const [letters, setLetters] = useState(defaultLetters)
   const [board, setBoard] = useState(defaulBoard)
   const [changed, setChanged] = useState(false)
@@ -26,21 +29,28 @@ const Board = (props) => {
   const [win, setWin] = useState(false)
   const [lost, setLost] = useState(false)
   const [message, setMessage] = useState('')
-  const [correctW, setCorrectW] = useState('')
-  const [time, setTime] = useState(Date.now());
+  const [time, setTime] = useState(Date.now);
+  const [update, setUpdate] = useState(false)
 
   useEffect(() => {
-    let correct = words[Math.floor(Math.random() * words.length)].toUpperCase() 
-    setCorrectW(correct)
-    
+    if (update) {
+      localStorage.setItem('word', correctW)
+      setUpdate(false)
+    }
+  }, [correctW, update]) 
+
+  useEffect(() => {
     let interval
       interval = setInterval(() => {
-      setTime(Date.now())
+      setTime()
+      setUpdate(true)
+      setCorrectW(words[Math.floor(Math.random() * words.length)].toUpperCase())
       console.log('In setInterval', correctW)
       }, 86400000)
-    
      return () => clearInterval(interval)
-  }, [time])
+  }, [time, correctW])
+
+ 
 
   useEffect(() => {
     if (win || lost) {

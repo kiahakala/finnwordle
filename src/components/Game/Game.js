@@ -50,7 +50,7 @@ function Game(props) {
   return (
     <>
       {help && (
-        <Modal title="How to play!" help={setHelp}>
+        <Modal title="Ohjeet" help={setHelp}>
           {" "}
           <Help />{" "}
         </Modal>
