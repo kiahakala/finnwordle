@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import Box from '../Box/Box'
 import words from '../../words'
 
@@ -19,6 +19,8 @@ for (let i = 0; i < 6; i++) {
 const Board = (props) => {
 
   const storedValueAsString = String(localStorage.getItem('word'))
+  const isLocked = Boolean(localStorage.getItem('lock'))
+
 
   const [correctW, setCorrectW] = useState(storedValueAsString ? storedValueAsString : '')
   const [letters, setLetters] = useState(defaultLetters)
@@ -31,13 +33,15 @@ const Board = (props) => {
   const [message, setMessage] = useState('')
   const [time, setTime] = useState(Date.now);
   const [update, setUpdate] = useState(false)
+  const [locked, setLocked] = useState(false)
 
   useEffect(() => {
     if (update) {
       localStorage.setItem('word', correctW)
+      localStorage.setItem('lock', locked)
       setUpdate(false)
     }
-  }, [correctW, update]) 
+  }, [correctW, locked, update]) 
 
   useEffect(() => {
     let interval
@@ -45,12 +49,11 @@ const Board = (props) => {
       setTime()
       setUpdate(true)
       setCorrectW(words[Math.floor(Math.random() * words.length)].toUpperCase())
-      console.log('In setInterval', correctW)
-      }, 86400000)
+      console.log('In setInterval', correctW, time, locked)
+      }, 6000)
+      //86400000
      return () => clearInterval(interval)
-  }, [time, correctW])
-
- 
+  }, [time, correctW]) 
 
   useEffect(() => {
     if (win || lost) {
@@ -109,7 +112,6 @@ const Board = (props) => {
                     })
                   }
                   setChanged(!changed)
-                  console.log(correctW, time)
 
                   if (correctLetters === 5) {
                     setWin(true)
@@ -119,6 +121,8 @@ const Board = (props) => {
                   }
                   return prevBoard
                 } else {
+                  setLocked(true)
+                  console.log(locked)
                   props.error('Sana ei ole sanakirjassa')
                   setTimeout(() => {
                     props.error('')
@@ -136,6 +140,14 @@ const Board = (props) => {
   useEffect(() => {
     props.letters(letters)
   }, [changed])
+
+  useEffect(() => {
+    if (isLocked) {
+      props.lock(true)
+      console.log(isLocked)
+    }
+    else {props.lock(false)}
+  }, [isLocked])
 
   return (
     <div className='px-10 py-5 grid gap-y-1 items-center w-100 justify-center'>

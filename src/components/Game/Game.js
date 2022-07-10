@@ -2,8 +2,10 @@ import { useState, useEffect } from "react"
 import Board from "../Board/Board"
 import Error from "../Error/Error"
 import Help from "../Help/Help"
+import Lock from "../Lock/Lock"
 import KeyBoard from "../KeyBoard/Keyboard"
 import Modal from "../Modal/Modal"
+import LockModal from "../Modal/LockModal"
 import NavBar from "../NavBar/Navbar"
 import styles from "./style.module.css"
 
@@ -12,6 +14,7 @@ function Game(props) {
   const [changed, setChanged] = useState(false)
   const [letters, setLetters] = useState({})
   const [help, setHelp] = useState(false)
+  const [lock, setLock] = useState(false)
   const [clicked, setClicked] = useState(0)
   const [error, setError] = useState("")
   const [dark, setDark] = useState(false)
@@ -55,6 +58,12 @@ function Game(props) {
           <Help />{" "}
         </Modal>
       )}
+       {lock && (
+        <LockModal title="Peli lukittu">
+          {" "}
+          <Lock />{" "}
+        </LockModal>
+      )}
       {error && <Error>{error}</Error>}
       <div className={styles.game}>
         <NavBar help={setHelp} darkness={setDark} dark={dark} />
@@ -64,6 +73,7 @@ function Game(props) {
           clicks={clicked}
           letters={LettersHandler}
           error={setError}
+          lock={setLock}
         />
         <KeyBoard keyHandler={keyHandler} letters={letters} changed={changed} />
       </div>

@@ -5,7 +5,7 @@ function Error(props) {
         {props.children}
       </div>
     </div>
-  );
+  )
 }
 
 export default Error;

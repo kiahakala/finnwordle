@@ -3,7 +3,7 @@ import "../../App.css"
 
 function Modal(props) {
   return (
-    <div className="absolute w-full h-full grid place-cente">
+    <div className="absolute w-full h-full grid place-center">
       <div
         className="z-10 flex place-self-center flex-col rounded-xl bg-white p-5 pb-10 drop-shadow-md dark:bg-zinc-800 dark:text-white"
         style={{ width: "min(600px, 90vw)", height: "min(580px, 80vh)" }}
@@ -22,7 +22,7 @@ function Modal(props) {
         </div>
       </div>
       <div
-        className="z-0 absolute w-full h-full grid place-cente"
+        className="z-0 absolute w-full h-full grid place-center"
         onClick={() => {
           props.help(false)
         }}
