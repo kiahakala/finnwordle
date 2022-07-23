@@ -58,7 +58,7 @@ function Game(props) {
           <Help />{" "}
         </Modal>
       )}
-       {lock && (
+      {lock && (
         <LockModal title="Peli lukittu">
           {" "}
           <Lock />{" "}

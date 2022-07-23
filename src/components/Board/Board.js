@@ -19,8 +19,6 @@ for (let i = 0; i < 6; i++) {
 const Board = (props) => {
 
   const storedValueAsString = String(localStorage.getItem('word'))
-  const isLocked = Boolean(localStorage.getItem('lock'))
-
 
   const [correctW, setCorrectW] = useState(storedValueAsString ? storedValueAsString : '')
   const [letters, setLetters] = useState(defaultLetters)
@@ -31,29 +29,25 @@ const Board = (props) => {
   const [win, setWin] = useState(false)
   const [lost, setLost] = useState(false)
   const [message, setMessage] = useState('')
-  const [time, setTime] = useState(Date.now);
   const [update, setUpdate] = useState(false)
-  const [locked, setLocked] = useState(false)
 
   useEffect(() => {
     if (update) {
       localStorage.setItem('word', correctW)
-      localStorage.setItem('lock', locked)
       setUpdate(false)
     }
-  }, [correctW, locked, update]) 
+  }, [correctW, update]) 
 
   useEffect(() => {
     let interval
       interval = setInterval(() => {
-      setTime()
       setUpdate(true)
       setCorrectW(words[Math.floor(Math.random() * words.length)].toUpperCase())
-      console.log('In setInterval', correctW, time, locked)
+      console.log('In setInterval', correctW)
       }, 6000)
       //86400000
      return () => clearInterval(interval)
-  }, [time, correctW]) 
+  }, [correctW]) 
 
   useEffect(() => {
     if (win || lost) {
@@ -77,6 +71,7 @@ const Board = (props) => {
                 setTimeout(() => {
                   props.error('')
                 }, 10000)
+                props.lock(true)
               }
             } else {
               if (props.letter === 'ENTER') {
@@ -121,8 +116,6 @@ const Board = (props) => {
                   }
                   return prevBoard
                 } else {
-                  setLocked(true)
-                  console.log(locked)
                   props.error('Sana ei ole sanakirjassa')
                   setTimeout(() => {
                     props.error('')
@@ -140,14 +133,6 @@ const Board = (props) => {
   useEffect(() => {
     props.letters(letters)
   }, [changed])
-
-  useEffect(() => {
-    if (isLocked) {
-      props.lock(true)
-      console.log(isLocked)
-    }
-    else {props.lock(false)}
-  }, [isLocked])
 
   return (
     <div className='px-10 py-5 grid gap-y-1 items-center w-100 justify-center'>
