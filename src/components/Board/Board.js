@@ -19,6 +19,8 @@ for (let i = 0; i < 6; i++) {
 const Board = (props) => {
 
   const storedValueAsString = String(localStorage.getItem('word'))
+  const storedTime = localStorage.getItem('time')
+
 
   const [correctW, setCorrectW] = useState(storedValueAsString ? storedValueAsString : '')
   const [letters, setLetters] = useState(defaultLetters)
@@ -30,6 +32,8 @@ const Board = (props) => {
   const [lost, setLost] = useState(false)
   const [message, setMessage] = useState('')
   const [update, setUpdate] = useState(false)
+  const [time, setTime] = useState(storedTime)
+
 
   useEffect(() => {
     if (update) {
@@ -39,12 +43,18 @@ const Board = (props) => {
   }, [correctW, update]) 
 
   useEffect(() => {
+    if (time > 0 && setUpdate(true)) {
+      props.lock(true)
+    }
+  }, [time, props]) 
+
+  useEffect(() => {
     let interval
       interval = setInterval(() => {
       setUpdate(true)
       setCorrectW(words[Math.floor(Math.random() * words.length)].toUpperCase())
       console.log('In setInterval', correctW)
-      }, 6000)
+      }, 86400000)
       //86400000
      return () => clearInterval(interval)
   }, [correctW]) 

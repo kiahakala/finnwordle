@@ -10,10 +10,12 @@ const useCountdown = (targetDate) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCountDown(countDownDate - new Date().getTime())
+      localStorage.setItem('time', countDown)
+      console.log(countDown)
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [countDownDate])
+  }, [countDownDate, countDown])
 
   return getReturnValues(countDown)
 };

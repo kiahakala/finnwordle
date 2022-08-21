@@ -2,10 +2,11 @@ import "../../App.css"
 import CountdownTimer from "../CountDownTimer"
 
 function LockModal(props) {
-    const DAY_IN_MS = 24 * 60 * 60 * 1000;
-    const NOW_IN_MS = new Date().getTime();
+    const DAY_IN_MS = 24 * 60 * 60 * 1000
+    const NOW_IN_MS = new Date().getTime()
 
-    const timeAfterOneDay = NOW_IN_MS + DAY_IN_MS;
+    const timeAfterOneDay = NOW_IN_MS + DAY_IN_MS
+    
 
     return (
         <div className="absolute w-full h-full grid place-center">

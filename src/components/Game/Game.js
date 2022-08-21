@@ -9,15 +9,17 @@ import LockModal from "../Modal/LockModal"
 import NavBar from "../NavBar/Navbar"
 import styles from "./style.module.css"
 
-function Game(props) {
+function Game (props) {
+
   const [letter, setLetter] = useState()
   const [changed, setChanged] = useState(false)
   const [letters, setLetters] = useState({})
   const [help, setHelp] = useState(false)
   const [lock, setLock] = useState(false)
   const [clicked, setClicked] = useState(0)
-  const [error, setError] = useState("")
+  const [error, setError] = useState('')
   const [dark, setDark] = useState(false)
+  
 
   const onClickDown = (event) => {
     if (event.key === "Enter") {
@@ -34,7 +36,6 @@ function Game(props) {
 
   useEffect(() => {
     window.addEventListener("keydown", onClickDown)
-
     return () => window.removeEventListener("keydown", onClickDown)
   })
 
@@ -50,6 +51,7 @@ function Game(props) {
     setLetters(lettersValue)
     setChanged(!changed)
   }
+
   return (
     <>
       {help && (
@@ -61,7 +63,8 @@ function Game(props) {
       {lock && (
         <LockModal title="Peli lukittu">
           {" "}
-          <Lock />{" "}
+          <Lock />
+          {" "}
         </LockModal>
       )}
       {error && <Error>{error}</Error>}
